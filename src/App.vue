@@ -1,30 +1,48 @@
 <template>
 
-    <div>
-        <div class="post" v-for="post in posts">
-            <div><strong>Title </strong>{{ post.title }}</div>
-            <div><strong>Body </strong>{{ post.body }}</div>
-
-        </div>
+    <div class="app">
+        <post-form/>
+        <post-list :posts="posts"/>
+       
+       
 
     </div>
 </template>
 
 <script>
+import PostForm from "@/components/PostForm.vue";
+import PostList from "@/components/PostList.vue";
+
+
 export default {
+    components: {
+        PostList, PostForm
+    },
     data() {
         return {
             posts: [
                 { id: 1, title: 'javascript', body: ' describing' },
                 { id: 2, title: ' javascript', body: ' describing 2' },
                 { id: 3, title: ' javascript', body: ' describing 3' },
-            ]
+            ],
+            title: '',
+            body: '',
         }
     },
     methods: {
-        addLike() {
+        createPost() {
+            const newPost = {
+                id: Date.now(),
+                title: this.title,
+                body: this.body,
 
-        }
+            }
+            this.posts.push(newPost);
+            this.title = '';
+            this.body = '';
+
+        },
+       
     }
 }
 
@@ -35,11 +53,11 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    .post {
-        padding: 15px;
-        border: 1px solid teal;
-        margin-top: 15px;
+    .app {
+        padding: 20px;
     }
+
+    
+ 
 }
 </style>
